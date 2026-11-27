@@ -29,3 +29,10 @@ main{padding-block:30px 0}.hero{overflow:hidden;isolation:isolate;position:relat
 @media print {
   .reset-budget { display: none; }
 }
+.copyright {
+  margin: 0;
+  padding-bottom: 18px;
+  color: var(--muted);
+  font-size: .875rem;
+  text-align: left;
+}
