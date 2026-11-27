@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="da">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Planlæg familiens indtægter, udgifter og opsparing i ét månedsbudget."><title>Budget Plan</title><link rel="stylesheet" href="style.css"><script src="budget.js" defer></script></head>
+<body>
+<header><div class="bar"><a class="brand" href="#"><span aria-hidden="true">◈</span> Budget Plan</a><div class="tools"><button id="demo">Se eksempel</button><label class="currency"><span class="sr">Valuta</span><select id="currency"><option>NOK</option><option>DKK</option><option>SEK</option><option>EUR</option></select></label></div></div></header>
+<main>
+<section class="hero" aria-labelledby="title">
+<div class="hero-copy"><div class="tag"><span></span> MÅNEDSBUDGET</div><h1 id="title">Familiens økonomi<br><em>på ét sted.</em></h1><p>Indtast jeres beløb og se med det samme, hvor pengene går hen, og hvad I har tilbage.</p></div>
+<div class="hero-art" aria-hidden="true"><i></i><i></i><i></i><div class="glyph">✳</div></div>
+<div class="metrics"><div><span>↗ &nbsp; Nettoindtægt i alt</span><strong id="income-total">0 kr.</strong></div><div><span>↘ &nbsp; Udgifter i alt</span><strong id="expense-total">0 kr.</strong></div><div class="balance"><span>✦ &nbsp; Tilbage efter alle poster</span><strong id="balance">0 kr.</strong></div></div>
+</section>
+<div id="demo-bar" hidden><span>Du ser et eksempel med fiktive beløb.</span><button id="close-demo">Tilbage til mit budget</button></div>
+<section class="card reset-budget" id="reset-panel" aria-labelledby="reset-title">
+<div><h2 id="reset-title">Start forfra</h2><p>Slet alle indtastede beløb og egne poster, og begynd med et tomt budget.</p><p id="reset-status" role="status"></p></div>
+<button id="reset-budget" type="button">Nulstil budget</button>
+</section>
+<div class="workspace">
+<div>
+<section class="card income">
+<div class="section-title"><span class="icon mint" aria-hidden="true">↗</span><div><h2>Indtægter</h2><p>Beløb efter skat</p></div></div>
+<div class="switch" role="group" aria-label="Antal nettoindtægter"><button data-count="1" aria-pressed="false">1 indtægt</button><button data-count="2" aria-pressed="false">2 indtægter</button></div>
+<div id="income-fields"></div>
+</section>
+<section class="expenses"><div class="expense-heading"><h2>Udgifter og opsparing</h2><button id="expand">Vis alle poster</button></div><p>Vælg, hvor ofte hvert beløb betales. Årlige og kvartalsvise beløb fordeles over året.</p><div id="groups"></div></section>
+</div>
+<aside class="card breakdown">
+<div class="section-title"><span class="icon lavender" aria-hidden="true">◔</span><div><h2>Her går pengene hen</h2><p>Udgifter og opsparing pr. måned</p></div></div>
+<div class="donut" id="donut"><div><span>I ALT PR. MÅNED</span><strong id="donut-total">0 kr.</strong></div></div>
+<div id="legend"></div>
+</aside>
+</div>
+<footer><span id="save-status">Budgettet gemmes i denne browser.</span><button id="print">Udskriv budget</button></footer>
+</main>
+</body></html>
