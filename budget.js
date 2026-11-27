@@ -12,7 +12,7 @@ const groups = [
 ];
 const periods = [['month','Måned',1],['quarter','Kvartal',3],['year','År',12]];
 const key = 'familiebudget-v1';
-const fresh = () => ({count:1,currency:'NOK',pump:false,values:{},custom:[]});
+const fresh = () => ({count:1,pump:false,values:{},custom:[]});
 const byId = id => document.getElementById(id);
 let own = fresh();
 try { own = JSON.parse(localStorage.getItem(key)) || own; } catch {}
@@ -34,11 +34,10 @@ function monthly(id) {
   return Number.isFinite(amount) && amount >= 0 ? amount / divisor : 0;
 }
 
+const numberFormat = new Intl.NumberFormat('da-DK',{maximumFractionDigits:2});
+
 function money(amount) {
-  return new Intl.NumberFormat('da-DK',{
-    style:'currency',currency:budget.currency, currencyDisplay:'narrowSymbol',
-    minimumFractionDigits:0,maximumFractionDigits:2
-  }).format(Math.abs(amount) < .005 ? 0 : amount);
+  return numberFormat.format(Math.abs(amount) < .005 ? 0 : amount) + '\u00a0kr.';
 }
 
 function element(tag, className, label) {
@@ -103,7 +102,6 @@ function render() {
   const open = new Set([...document.querySelectorAll('details[open]')].map(detail => detail.id));
   const wrap = byId('groups');
   wrap.replaceChildren();
-  byId('currency').value = budget.currency;
   byId('demo').hidden = demo;
   byId('demo-bar').hidden = !demo;
   byId('reset-panel').hidden = demo;
@@ -212,14 +210,9 @@ for (const button of document.querySelectorAll('[data-count]')) button.onclick =
   save();
   render();
 };
-byId('currency').onchange = event => {
-  budget.currency = event.target.value;
-  save();
-  update();
-};
 byId('demo').onclick = () => {
   demo = true;
-  budget = {...fresh(),currency:own.currency,count:2,pump:true};
+  budget = {...fresh(),count:2,pump:true};
   const values = {income1:31600,income2:24900,benefits:1550,'0-1':14300,'0-4':1900,'0-6':540,'0-8':750,'1-0':3400,'1-1':830,'1-2':450,'1-4':1250,'2-0':7600,'2-1':850,'3-0':2650,'3-6':720,'4-0':400,'4-5':240,'5-0':450,'5-1':470,'6-6':2300,'7-0':510,'8-0':950,'9-0':2500,'9-1':800};
   for (const [id,amount] of Object.entries(values)) budget.values[id] = {amount};
   render();
